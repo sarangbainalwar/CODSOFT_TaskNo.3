@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator</title>
+  <style>
+    .calculator {
+      width: 200px;
+      border: 1px solid #000000;
+      padding: 10px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .calculator input {
+      width: 100%;
+      margin-bottom: 5px;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    .calculator button {
+      width: 48%;
+      padding: 5px;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="result" disabled />
+    <button onclick="appendNumber(7)">7</button>
+    <button onclick="appendNumber(8)">8</button>
+    <button onclick="appendNumber(9)">9</button>
+    <button onclick="setOperator('+')">+</button>
+    <button onclick="appendNumber(4)">4</button>
+    <button onclick="appendNumber(5)">5</button>
+    <button onclick="appendNumber(6)">6</button>
+    <button onclick="setOperator('-')">-</button>
+    <button onclick="appendNumber(1)">1</button>
+    <button onclick="appendNumber(2)">2</button>
+    <button onclick="appendNumber(3)">3</button>
+    <button onclick="setOperator('*')">*</button>
+    <button onclick="appendNumber(0)">0</button>
+    <button onclick="toggleSign()">+/-</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="setOperator('/')">/</button>
+    <button onclick="clearInput()">Clear</button>
+  </div>
+
+  <script>
+    let input = '0';
+    let operator = '';
+    let result = 0;
+
+    function updateDisplay() {
+      document.getElementById('result').value = input;
+    }
+
+    function appendNumber(number) {
+      if (input === '0') {
+        input = number.toString();
+      } else {
+        input += number.toString();
+      }
+      updateDisplay();
+    }
+
+    function setOperator(operatorSymbol) {
+      operator = operatorSymbol;
+      result = parseFloat(input);
+      input = '0';
+      updateDisplay();
+    }
+
+    function calculate() {
+      const currentNumber = parseFloat(input);
+      switch (operator) {
+        case '+':
+          result += currentNumber;
+          break;
+        case '-':
+          result -= currentNumber;
+          break;
+        case '*':
+          result *= currentNumber;
+          break;
+        case '/':
+          result /= currentNumber;
+          break;
+      }
+      input = result.toString();
+      operator = '';
+      updateDisplay();
+    }
+
+    function toggleSign() {
+      input = (parseFloat(input) * -1).toString();
+      updateDisplay();
+    }
+
+    function clearInput() {
+      input = '0';
+      operator = '';
+      result = 0;
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>
